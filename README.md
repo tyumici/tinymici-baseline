@@ -28,7 +28,7 @@ This is a rewrite of the original tinymici, making it far more usable, flexible,
 
 ### Secrets
 
-This application uses a different approach to secrets management. I have opted to store secrets in a `secrets.db` sqlite file. This is due to this bot application being for live streams. Users typically would have a `.env` file for this, but that can accidentally be shown on stream, whereas having a binary db file eliminates this issue.
+This application uses a different approach to secrets management. I have opted to store secrets in a `secrets.db` sqlite file in the root of the project. This is due to this bot application being for live streams. Users typically would have a `.env` file for this, but that can accidentally be shown on stream, whereas having a binary db file eliminates this issue.
 
 I use [DB Browser](https://sqlitebrowser.org/) to simply create the DB with a single table: 
 
