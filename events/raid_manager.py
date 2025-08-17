@@ -1,8 +1,10 @@
 # Package
 from twitchAPI.object.eventsub import ChannelRaidEvent
+from termcolor import colored
 
 # Custom
 import models.globals
+from models.log_level import LogLevel
 
 
 class RaidManager:
@@ -17,5 +19,11 @@ class RaidManager:
                 info.event.from_broadcaster_user_id,
                 models.globals._BROADCASTER_TWITCH_ID,
             )
+            print(
+                colored(
+                    f"Raid received by: {info.event.from_broadcaster_user_name}",
+                    LogLevel.EVENT_SUB_NOTIF.value,
+                )
+            )
         except Exception as e:
-            print(f"Error on Raid shoutout: {e}")
+            print(colored(f"Error on Raid shoutout: {e}", LogLevel.ERROR_MESSAGE.value))

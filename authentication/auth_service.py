@@ -2,11 +2,13 @@
 from twitchAPI.chat import EventData
 from twitchAPI.twitch import Twitch
 from twitchAPI.oauth import UserAuthenticator
+from termcolor import colored
 
 # Custom
 from data.data_service import DataService
 from models.permissions import TARGET_SCOPES
 import models.globals
+from models.log_level import LogLevel
 
 
 class AuthService:
@@ -30,6 +32,7 @@ class AuthService:
             TARGET_SCOPES,
             auth_dict["BOT_REFRESH_TOKEN"],
         )
+        print(colored("Bot auth instantiated", LogLevel.SUCCESS_MESSAGE.value))
         return models.globals._bot_handler_twitch
 
     async def setup_event_sub_auth(auth_dict):
@@ -45,6 +48,7 @@ class AuthService:
         await models.globals._event_sub_handler_twitch.set_user_authentication(
             token, TARGET_SCOPES, refresh_token
         )
+        print(colored("Event Sub auth instantiated", LogLevel.SUCCESS_MESSAGE.value))
         return models.globals._event_sub_handler_twitch
 
     def user_refresh(token: str, refresh_token: str):
@@ -54,4 +58,9 @@ class AuthService:
     async def on_ready(ready_event: EventData):
         """Print the Bot Ready event to the console once ready"""
         await ready_event.chat.join_room(models.globals._TARGET_CHANNELS)
-        print(f"[{models.globals._BOT_SIGIL} ] {models.globals._BOT_NAME} is ready")
+        print(
+            colored(
+                f"[{models.globals._BOT_SIGIL} ] {models.globals._BOT_NAME} is ready",
+                LogLevel.SUCCESS_MESSAGE.value,
+            )
+        )

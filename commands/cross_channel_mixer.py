@@ -2,6 +2,9 @@
 from twitchAPI.chat import ChatMessage
 from termcolor import colored
 
+# Custom
+from models.log_level import LogLevel
+
 
 class CrossChannelService:
     """
@@ -19,6 +22,6 @@ class CrossChannelService:
         print(
             colored(
                 f"{f"Channel: {msg.room.name}, User: {msg.user.display_name}, Message: {msg.text}"}",
-                "blue",
+                LogLevel.CHANNEL_MESSAGE.value,
             )
         )

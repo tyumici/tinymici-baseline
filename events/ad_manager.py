@@ -3,9 +3,11 @@ import os
 
 # Package
 from twitchAPI.object.eventsub import ChannelAdBreakBeginEvent
+from termcolor import colored
 
 # Custom
 import models.globals
+from models.log_level import LogLevel
 
 
 class AdManager:
@@ -23,6 +25,7 @@ class AdManager:
 
         Default will post links to the broadcasters Discord and Bluesky
         """
+        print(colored("An ad break has started", LogLevel.EVENT_SUB_NOTIF.value))
         await models.globals._chat_global.send_message(
             info.event.broadcaster_user_name,
             f"[{models.globals._BOT_SIGIL}] Ads are in progress...",
@@ -42,3 +45,4 @@ class AdManager:
             info.event.broadcaster_user_name,
             f"[{models.globals._BOT_SIGIL}] Ads are over!",
         )
+        print(colored("An ad break has ended", LogLevel.EVENT_SUB_NOTIF.value))
