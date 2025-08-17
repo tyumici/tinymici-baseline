@@ -26,6 +26,7 @@ connPrimary = DataService.connect_primary()
 connSecrets = DataService.connect_secrets()
 secrets = DataService.get_all_secrets()
 
+
 async def run():
     # Initialize bot handler Twitch Class
     bot_handler_twitch = await AuthService.setup_bot_auth(secrets)
@@ -48,14 +49,22 @@ async def run():
     )
     # FOLLOW SUB
     await eventsub.listen_channel_follow_v2(
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, models.globals._PRIMARY_ACCOUNT_TWITCH_ID, FollowService.on_follow
+        models.globals._PRIMARY_ACCOUNT_TWITCH_ID,
+        models.globals._PRIMARY_ACCOUNT_TWITCH_ID,
+        FollowService.on_follow,
     )
     # AD BREAK SUB
-    await eventsub.listen_channel_ad_break_begin(models.globals._PRIMARY_ACCOUNT_TWITCH_ID, AdManager.on_ad_start)
+    await eventsub.listen_channel_ad_break_begin(
+        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, AdManager.on_ad_start
+    )
     # OFFLINE SUB
-    await eventsub.listen_stream_offline(models.globals._PRIMARY_ACCOUNT_TWITCH_ID, OfflineManager.change_stream_info)
+    await eventsub.listen_stream_offline(
+        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, OfflineManager.change_stream_info
+    )
     # RAID SUB
-    await eventsub.listen_channel_raid(RaidManager.handle_raid, models.globals._PRIMARY_ACCOUNT_TWITCH_ID)
+    await eventsub.listen_channel_raid(
+        RaidManager.handle_raid, models.globals._PRIMARY_ACCOUNT_TWITCH_ID
+    )
 
     try:
         input("press Enter to shut down...\n")

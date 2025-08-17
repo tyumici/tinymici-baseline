@@ -10,6 +10,7 @@ A baseline Twitch bot made in Python 3.13.5
       - [Populating the DB](#populating-the-db)
     - [Databasing](#databasing)
     - [Global Variables](#global-variables)
+    - [Linting and Formatting](#linting-and-formatting)
     - [Running](#running)
 
 ## Rationale
@@ -73,6 +74,10 @@ If you have no need for a database, just comment out the `connPrimary = DataServ
 For the DB credentials, you can use a .env or hardcode them in. If you're running a local DB on your local network, without external access, there shouldn't be harm in that.
 
 ### Global Variables
+
+### Linting and Formatting
+
+Please do run `flake8 .` and `black .` to lint and format the app.
 
 ### Running
 

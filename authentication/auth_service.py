@@ -6,10 +6,11 @@ from data.data_service import DataService
 from models.permissions import TARGET_SCOPES
 import models.globals
 
+
 class AuthService:
 
     async def setup_bot_auth(auth_dict):
-        '''Create and return a Twitch instance of bot Twitch Class for chat commands'''
+        """Create and return a Twitch instance of bot Twitch Class for chat commands"""
 
         models.globals._bot_handler_twitch = await Twitch(
             auth_dict["BOT_CLIENT_ID"], authenticate_app=False
@@ -25,12 +26,14 @@ class AuthService:
         return models.globals._bot_handler_twitch
 
     async def setup_event_sub_auth(auth_dict):
-        '''Create and return a Twitch instance for the Console App for Event Sub usage'''
+        """Create and return a Twitch instance for the Console App for Event Sub usage"""
 
         models.globals._event_sub_handler_twitch = await Twitch(
             auth_dict["EVENTSUB_CLIENT_ID"], auth_dict["EVENTSUB_CLIENT_SECRET"]
         )
-        auth = UserAuthenticator(models.globals._event_sub_handler_twitch, TARGET_SCOPES)
+        auth = UserAuthenticator(
+            models.globals._event_sub_handler_twitch, TARGET_SCOPES
+        )
         token, refresh_token = await auth.authenticate()
         await models.globals._event_sub_handler_twitch.set_user_authentication(
             token, TARGET_SCOPES, refresh_token
@@ -38,10 +41,10 @@ class AuthService:
         return models.globals._event_sub_handler_twitch
 
     def user_refresh(token: str, refresh_token: str):
-        '''Refresh user token'''
+        """Refresh user token"""
         DataService.update_bot_tokens(token, refresh_token)
 
     async def on_ready(ready_event: EventData):
-        '''Bot on ready event'''
+        """Bot on ready event"""
         await ready_event.chat.join_room(models.globals._TARGET_CHANNELS)
         print(f"[{models.globals._BOT_SIGIL} ] {models.globals._BOT_NAME} is ready")
