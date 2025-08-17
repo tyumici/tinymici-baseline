@@ -11,16 +11,16 @@ import models.globals
 class AdManager:
     """
     Handles ad break event for the current Broadcaster
-    
+
     Add additional sleep segments based on how long your ad breaks are
-    
+
     Default is three one minute sleeps for a standard three minute ad break per hour
     """
 
     async def on_ad_start(info: ChannelAdBreakBeginEvent):
         """
         Sends messages in the chat room for ad break start, and end
-        
+
         Default will post links to the broadcasters Discord and Bluesky
         """
         await models.globals._chat_global.send_message(

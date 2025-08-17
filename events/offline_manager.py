@@ -9,6 +9,7 @@ import models.globals
 
 class OfflineManager:
     """Performs automated actions for when the live stream goes offline"""
+
     async def change_stream_info(info: StreamOfflineEvent):
         """Updates the stream title to the given offline title when the stream ends"""
         print("Stream Ended")

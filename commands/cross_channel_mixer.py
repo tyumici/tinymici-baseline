@@ -6,11 +6,11 @@ from termcolor import colored
 class CrossChannelService:
     """
     Provides local logging for all messages received from channels the bot is listening to.
-    
+
     You can provide custom functionality here to perform actions on messages from these subscribed channels.
-    
+
     For example, a user sends term-x in a subscribed channel and you want the bot to reply in that channel.
-    
+
     Please use this with caution and confirmation from the other party(s)
     """
 

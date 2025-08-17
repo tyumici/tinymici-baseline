@@ -70,7 +70,7 @@ async def run():
     except KeyboardInterrupt:
         pass
     finally:
-        # Stop all listeners before terminating 
+        # Stop all listeners before terminating
         print("Shutting down")
         chat_global.stop()
         await eventsub.stop()

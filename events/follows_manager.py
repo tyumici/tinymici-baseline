@@ -7,6 +7,7 @@ import models.globals
 
 class FollowService:
     """Service to provide actions on a user following the channel"""
+
     async def on_follow(data: ChannelFollowEvent):
         """Send a message in the broadcasters chat room welcoming in the new follower"""
         await models.globals._chat_global.send_message(

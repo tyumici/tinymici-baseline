@@ -7,6 +7,7 @@ import models.globals
 
 class RaidManager:
     """Performs automated actions when a user raids the broadcaster"""
+
     # TODO need something to handle the shoutout cooldown
     async def handle_raid(info: ChannelRaidEvent):
         """Performs an automated shout out to the use that is raiding into the broadcaster"""

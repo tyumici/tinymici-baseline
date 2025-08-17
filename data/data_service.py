@@ -92,7 +92,7 @@ class DataService:
     def get_single_row(sql_statement: str):
         """
         Accepts a SQL SELECT that would return one row
-        
+
         ex: using a WHERE id statement
         """
         try:
@@ -187,7 +187,7 @@ class DataService:
     def translate_many_to_json_like(cursor, data) -> List[Dict[str, Any]]:
         """
         Converts row data for multiple rows into a list of dicts
-        
+
         Allows for JSON-like returns of data
         """
         columns = [column[0] for column in cursor.description]
@@ -197,7 +197,7 @@ class DataService:
     def translate_single_to_json_like(cursor, data) -> dict:
         """
         Converts row data for a single row into a dict
-        
+
         Allows for JSON-like returns of data
         """
         columns = [column[0] for column in cursor.description]

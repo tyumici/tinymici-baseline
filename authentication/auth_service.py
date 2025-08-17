@@ -11,8 +11,8 @@ import models.globals
 
 class AuthService:
     """
-        A service that creates and returns Twitch classes when passed 
-        authentication parameters
+    A service that creates and returns Twitch classes when passed
+    authentication parameters
     """
 
     async def setup_bot_auth(auth_dict):
