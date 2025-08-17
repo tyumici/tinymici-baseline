@@ -9,6 +9,7 @@ A baseline Twitch bot made in Python 3.13.5
       - [Getting Auth Tokens](#getting-auth-tokens)
       - [Populating the DB](#populating-the-db)
     - [Databasing](#databasing)
+    - [Global Variables](#global-variables)
     - [Running](#running)
 
 ## Rationale
@@ -70,6 +71,8 @@ Tinymici is built to hook to a proper relational database, MariaDB in this case.
 If you have no need for a database, just comment out the `connPrimary = DataService.connect_primary()` in `main.py`
 
 For the DB credentials, you can use a .env or hardcode them in. If you're running a local DB on your local network, without external access, there shouldn't be harm in that.
+
+### Global Variables
 
 ### Running
 
