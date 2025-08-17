@@ -28,7 +28,10 @@ class ChatCommands:
         if len(cmd.text) > 1:
             await cmd.reply(f"[{models.globals._BOT_SIGIL}] Title updated")
             await models.globals._event_sub_handler_twitch.modify_channel_information(
-                models.globals._BROADCASTER_TWITCH_ID, None, None, Helpers.parse_command_text_single(cmd.text)
+                models.globals._BROADCASTER_TWITCH_ID,
+                None,
+                None,
+                Helpers.parse_command_text_single(cmd.text),
             )
         else:
             await cmd.reply(f"[{models.globals._BOT_SIGIL}] Provide a value!")

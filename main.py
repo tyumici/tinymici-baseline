@@ -4,6 +4,7 @@ import asyncio
 from twitchAPI.type import ChatEvent
 from twitchAPI.eventsub.websocket import EventSubWebsocket
 from dotenv import load_dotenv
+from termcolor import colored
 
 # Custom
 from authentication.auth_service import AuthService
@@ -16,6 +17,7 @@ from events.offline_manager import OfflineManager
 from events.raid_manager import RaidManager
 from events.redeems_manager import RedeemService
 import models.globals
+from models.log_level import LogLevel
 
 # Global variable and database connection instantiation
 load_dotenv()
@@ -70,8 +72,8 @@ async def run():
     except KeyboardInterrupt:
         pass
     finally:
-        # Stop all listeners before terminating 
-        print("Shutting down")
+        # Stop all listeners before terminating
+        print(colored("Shutting down", LogLevel.CONNECTION_MESSAGE.value))
         chat_global.stop()
         await eventsub.stop()
         await event_sub_handler_twitch.close()

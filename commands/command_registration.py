@@ -13,8 +13,8 @@ import models.globals
 
 async def setupChatGlobal(twitch: Twitch):
     """
-        Create and return a Chat instance for chat commands.
-        Add command registrations here to register chat actions within this function
+    Create and return a Chat instance for chat commands.
+    Add command registrations here to register chat actions within this function
     """
     models.globals._chat_global = await Chat(twitch)
     models.globals._chat_global.register_event(ChatEvent.READY, Helpers.on_ready)

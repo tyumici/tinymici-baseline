@@ -14,6 +14,7 @@ from termcolor import colored
 
 # Custom
 import models.globals
+from models.log_level import LogLevel
 
 # --- --- --- --- --- RECONNECT HANDLERS --- --- --- --- --- #
 
@@ -23,14 +24,18 @@ def reconnect_db_job():
     models.globals._connectionPrimary = DataService.reconnect_primary(
         models.globals._connectionPrimary
     )
-    print(colored("A scheduled DB reconnect has occurred", "green"))
+    print(
+        colored(
+            "A scheduled DB reconnect has occurred", LogLevel.CONNECTION_MESSAGE.value
+        )
+    )
 
 
 schedule.every(4).hours.do(reconnect_db_job)  # run database reconnect every 4 hours
 
 
 def run_scheduler():
-    print(colored("DB Reconnect Schedule Started", "yellow"))
+    print(colored("DB Reconnect Schedule Started", LogLevel.CONNECTION_MESSAGE.value))
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -53,10 +58,20 @@ class DataService:
                 database=os.getenv("DB_NAME"),
             )
             if models.globals._connectionPrimary.is_connected():
-                print(colored("Connected to MariaDB on test DB", "green"))
+                print(
+                    colored(
+                        "Connected to MariaDB on test DB",
+                        LogLevel.SUCCESS_MESSAGE.value,
+                    )
+                )
                 return models.globals._connectionPrimary
         except mariadb.Error as e:
-            print(colored(f"Error connecting to MariaDB Platform: {e}", "red"))
+            print(
+                colored(
+                    f"Error connecting to MariaDB Platform: {e}",
+                    LogLevel.ERROR_MESSAGE.value,
+                )
+            )
             sys.exit(1)
 
     def reconnect_primary(connection):
@@ -64,13 +79,13 @@ class DataService:
         while True:
             try:
                 connection.ping(reconnect=True)
-                print(colored("MariaDB PING succeeded", "green"))
+                print(colored("MariaDB PING succeeded", LogLevel.SUCCESS_MESSAGE.value))
                 break
             except Error as e:
                 print(
                     colored(
                         f"MariaDB Connection lost. Attempting to reconnect: {e}",
-                        "yellow",
+                        LogLevel.SUCCESS_MESSAGE.value,
                     )
                 )
                 time.sleep(10)
@@ -86,13 +101,13 @@ class DataService:
             data = cursor.fetchall()
             return DataService.translate_many_to_json_like(cursor, data)
         except mariadb.Error as e:
-            print(colored(f"Get All Error: {e}"), "red")
+            print(colored(f"Get All Error: {e}"), LogLevel.ERROR_MESSAGE.value)
             DataService.handle_reconnect_error(e)
 
     def get_single_row(sql_statement: str):
         """
         Accepts a SQL SELECT that would return one row
-        
+
         ex: using a WHERE id statement
         """
         try:
@@ -104,7 +119,7 @@ class DataService:
             else:
                 return None
         except mariadb.Error as e:
-            print(colored(f"Get One Error: {e}"), "red")
+            print(colored(f"Get One Error: {e}"), LogLevel.ERROR_MESSAGE.value)
             DataService.handle_reconnect_error(e)
 
     def insert_record(sql_statement: str, data: tuple[Any]):
@@ -114,7 +129,7 @@ class DataService:
             cursor.execute(sql_statement, data)
             models.globals._connectionPrimary.commit()
         except mariadb.Error as e:
-            print(colored(f"Insert Error: {e}", "red"))
+            print(colored(f"Insert Error: {e}", LogLevel.ERROR_MESSAGE.value))
             DataService.handle_reconnect_error(e)
 
     def update_record(sql_statement: str, data: tuple[Any]):
@@ -124,7 +139,7 @@ class DataService:
             cursor.execute(sql_statement, data)
             models.globals._connectionPrimary.commit()
         except mariadb.Error as e:
-            print(colored(f"Update Error: {e}", "red"))
+            print(colored(f"Update Error: {e}", LogLevel.ERROR_MESSAGE.value))
             DataService.handle_reconnect_error(e)
 
     def delete_record(sql_statement: str, data: tuple[Any]):
@@ -134,7 +149,7 @@ class DataService:
             cursor.execute(sql_statement, data)
             models.globals._connectionPrimary.commit()
         except mariadb.Error as e:
-            print(colored(f"Delete Error: {e}", "red"))
+            print(colored(f"Delete Error: {e}", LogLevel.ERROR_MESSAGE.value))
             DataService.handle_reconnect_error(e)
 
     def handle_reconnect_error(e):
@@ -151,10 +166,18 @@ class DataService:
         try:
             models.globals._connectionSecrets = sqlite3.connect("./secrets.db")
             models.globals._connectionSecrets.autocommit = True
-            print(colored("Connected to secrets db on SQLite", "green"))
+            print(
+                colored(
+                    "Connected to secrets db on SQLite", LogLevel.SUCCESS_MESSAGE.value
+                )
+            )
             return models.globals._connectionSecrets.cursor()
         except sqlite3.Error as e:
-            print(f"Error in connecting to secrets: {e}")
+            print(
+                colored(
+                    f"Error in connecting to secrets: {e}", LogLevel.ERROR_MESSAGE.value
+                )
+            )
 
     def get_all_secrets():
         """Get all secrets from the secrets.db"""
@@ -164,7 +187,9 @@ class DataService:
             auth_dict = dict(auth_creds_tuple)
             return auth_dict
         except sqlite3.Error as e:
-            print(f"Error in fetching secrets: {e}")
+            print(
+                colored(f"Error in fetching secrets: {e}", LogLevel.ERROR_MESSAGE.value)
+            )
 
     def update_bot_tokens(token: str, refresh_token: str):
         """Updates the Bot tokens when the user_refresh function from auth_service.py is called"""
@@ -178,16 +203,20 @@ class DataService:
             cursor.executemany(
                 "UPDATE SECRETS SET 'VALUE' = ? WHERE 'TYPE' = ?", new_tokens
             )
-            print("Tokens Refreshed")
+            print(colored("Tokens Refreshed", LogLevel.SUCCESS_MESSAGE.value))
         except sqlite3.Error as e:
-            print(f"Error in updating BOT tokens: {e}")
+            print(
+                colored(
+                    f"Error in updating Bot tokens: {e}", LogLevel.ERROR_MESSAGE.value
+                )
+            )
 
     # --- --- --- --- --- UTILITY --- --- --- --- --- #
 
     def translate_many_to_json_like(cursor, data) -> List[Dict[str, Any]]:
         """
         Converts row data for multiple rows into a list of dicts
-        
+
         Allows for JSON-like returns of data
         """
         columns = [column[0] for column in cursor.description]
@@ -197,7 +226,7 @@ class DataService:
     def translate_single_to_json_like(cursor, data) -> dict:
         """
         Converts row data for a single row into a dict
-        
+
         Allows for JSON-like returns of data
         """
         columns = [column[0] for column in cursor.description]

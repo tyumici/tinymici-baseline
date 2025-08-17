@@ -3,9 +3,11 @@ from datetime import datetime, timedelta
 
 # Package
 from twitchAPI.chat import EventData
+from termcolor import colored
 
 # Custom
 import models.globals
+from models.log_level import LogLevel
 
 
 class Helpers:
@@ -32,4 +34,9 @@ class Helpers:
     async def on_ready(ready_event: EventData):
         """Bot on ready event, sends a console print when ready is achieved"""
         await ready_event.chat.join_room(models.globals._TARGET_CHANNELS)
-        print(f"[{models.globals._BOT_SIGIL} ] {models.globals._BOT_NAME} is ready")
+        print(
+            colored(
+                f"[{models.globals._BOT_SIGIL} ] {models.globals._BOT_NAME} is ready",
+                LogLevel.SUCCESS_MESSAGE.value,
+            )
+        )

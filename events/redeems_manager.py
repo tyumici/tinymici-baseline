@@ -1,12 +1,15 @@
 # Package
 from twitchAPI.object.eventsub import ChannelPointsCustomRewardRedemptionAddEvent
+from termcolor import colored
+
 # Custom
 import models.globals
+from models.log_level import LogLevel
 
 
 class RedeemService:
     """Service for handling channel point redeems"""
-    
+
     # TODO update this to use a match case
     async def handle_redeems(event: ChannelPointsCustomRewardRedemptionAddEvent):
         """Handles channel point redemptions by reward title name"""
@@ -15,4 +18,9 @@ class RedeemService:
                 event.event.broadcaster_user_name,
                 f"[{models.globals._BOT_SIGIL}] test confirmed",
             )
-        print(f"Point Redemption: {event.event.reward}")
+        print(
+            colored(
+                f"Point Redemption: {event.event.reward}",
+                LogLevel.EVENT_SUB_NOTIF.value,
+            )
+        )
