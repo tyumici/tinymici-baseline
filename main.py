@@ -1,4 +1,3 @@
-# Native
 import asyncio
 
 # Package
@@ -7,7 +6,6 @@ from twitchAPI.eventsub.websocket import EventSubWebsocket
 from dotenv import load_dotenv
 
 # Custom
-
 from authentication.auth_service import AuthService
 from commands.command_registration import setupChatGlobal
 from commands.cross_channel_mixer import CrossChannelService
@@ -34,48 +32,50 @@ async def run():
     # Initialize event sub handler Twitch Class
     event_sub_handler_twitch = await AuthService.setup_event_sub_auth(secrets)
 
-    # INIT CHAT
+    # Initialize Chat Class, register on any message handler from CrossChannelService
     chat_global = await setupChatGlobal(bot_handler_twitch)
     chat_global.register_event(ChatEvent.MESSAGE, CrossChannelService.on_any_message)
     chat_global.start()
 
-    # INIT EVENTSUB
+    # Initialize the Event Sub WebSocket
     eventsub = EventSubWebsocket(event_sub_handler_twitch)
     eventsub.start()
 
-    # REDEMPTION SUB
+    # Listen for channel point redemptions on the event sub
     await eventsub.listen_channel_points_custom_reward_redemption_add(
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, RedeemService.handle_redeems
+        models.globals._BROADCASTER_TWITCH_ID, RedeemService.handle_redeems
     )
-    # FOLLOW SUB
+    # Listen for channel follows on the event sub
     await eventsub.listen_channel_follow_v2(
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID,
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID,
+        models.globals._BROADCASTER_TWITCH_ID,
+        models.globals._BROADCASTER_TWITCH_ID,
         FollowService.on_follow,
     )
-    # AD BREAK SUB
+    # Listen for ad break start on the event sub
     await eventsub.listen_channel_ad_break_begin(
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, AdManager.on_ad_start
+        models.globals._BROADCASTER_TWITCH_ID, AdManager.on_ad_start
     )
-    # OFFLINE SUB
+    # Listen for channel stream offline on the event sub
     await eventsub.listen_stream_offline(
-        models.globals._PRIMARY_ACCOUNT_TWITCH_ID, OfflineManager.change_stream_info
+        models.globals._BROADCASTER_TWITCH_ID, OfflineManager.change_stream_info
     )
-    # RAID SUB
+    # Listen for raid into channel on the event sub
     await eventsub.listen_channel_raid(
-        RaidManager.handle_raid, models.globals._PRIMARY_ACCOUNT_TWITCH_ID
+        RaidManager.handle_raid, models.globals._BROADCASTER_TWITCH_ID
     )
 
     try:
+        # Press enter in the terminal to shutdown
         input("press Enter to shut down...\n")
     except KeyboardInterrupt:
         pass
     finally:
+        # Stop all listeners before terminating 
         print("Shutting down")
         chat_global.stop()
         await eventsub.stop()
         await event_sub_handler_twitch.close()
 
 
-# RUN MAIN
+# Start the Twitch Bot
 asyncio.run(run())

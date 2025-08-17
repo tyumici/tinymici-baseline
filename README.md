@@ -50,17 +50,17 @@ You will need to:
 
 - Create a token for your **Bot Account** via the [Twitch Token Generator](https://twitchtokengenerator.com/)
   - Make sure to provide it with all the necessary auth scopes (TODO ADD BASE SCOPES HERE)
-- Create a Developer Application for your **Primary Account** via the [Twitch Developer Console](https://dev.twitch.tv/console/apps)
+- Create a Developer Application for your **Broadcaster Account** via the [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 
-This effectively allows for the **Bot Account** to respond to commands, send messages, etc, while also allowing eventsub handling from your **Primary Account**. 
+This effectively allows for the **Bot Account** to respond to commands, send messages, etc, while also allowing eventsub handling from your **Broadcaster Account**. 
 
 If someone actually knows if this is correct or not, please let me know, it's just how I managed to get it working :3
 
 #### Populating the DB
 
 The type is unique, and the schema is as follows:
-- EVENT_SUB_CLIENT_ID: This is your client id from your **Primary Account**
-- EVENT_SUB_CLIENT_SECRET: This is your client secret from your **Primary Account**
+- EVENT_SUB_CLIENT_ID: This is your client id from your **Broadcaster Account**
+- EVENT_SUB_CLIENT_SECRET: This is your client secret from your **Broadcaster Account**
 - BOT_CLIENT_ID: The client id from your **Bot Account**
 - BOT_ACCESS_TOKEN: This is the access token from your **Bot Account**
 - BOT_REFRESH_TOKEN: This is the refresh token from your **Bot Account**

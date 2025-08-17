@@ -1,20 +1,25 @@
+# Package
 from twitchAPI.chat import Chat
 from twitchAPI.type import ChatEvent
+from twitchAPI.twitch import Twitch
 
+# Custom
 from commands.chat_info import ChatInfo
 from commands.chat_commands import ChatCommands
 from utilities.helper import Helpers
-
 from models.permissions import BROADCASTER_CHANNEL_MIDDLEWARE, BROADCASTER_ONLY_COMMAND
 import models.globals
 
 
-async def setupChatGlobal(twitch):
-    """Create and return a Chat instance for chat commands"""
+async def setupChatGlobal(twitch: Twitch):
+    """
+        Create and return a Chat instance for chat commands.
+        Add command registrations here to register chat actions within this function
+    """
     models.globals._chat_global = await Chat(twitch)
     models.globals._chat_global.register_event(ChatEvent.READY, Helpers.on_ready)
 
-    # --- --- --- --- --- INFO_CHAT --- --- --- --- --- #
+    # --- --- --- --- --- INFO COMMANDS --- --- --- --- --- #
 
     models.globals._chat_global.register_command(
         "discord", ChatInfo.discord, command_middleware=BROADCASTER_CHANNEL_MIDDLEWARE
@@ -41,7 +46,7 @@ async def setupChatGlobal(twitch):
         "commands", ChatInfo.commands, command_middleware=BROADCASTER_CHANNEL_MIDDLEWARE
     )
 
-    # --- --- --- --- --- COMMAND_CHAT --- --- --- --- --- #
+    # --- --- --- --- --- CHAT ACTIONS --- --- --- --- --- #
 
     models.globals._chat_global.register_command(
         "lurk", ChatCommands.lurk, command_middleware=BROADCASTER_ONLY_COMMAND
@@ -50,7 +55,7 @@ async def setupChatGlobal(twitch):
         "ping", ChatCommands.ping, command_middleware=BROADCASTER_CHANNEL_MIDDLEWARE
     )
 
-    # --- --- --- --- --- ADMIN --- --- --- --- --- #
+    # --- --- --- --- --- BROADCASTER ONLY --- --- --- --- --- #
 
     models.globals._chat_global.register_command(
         "updateTitle",

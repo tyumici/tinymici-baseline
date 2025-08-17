@@ -1,5 +1,6 @@
 import os
 
+# Package
 from twitchAPI.twitch import Twitch
 from twitchAPI.chat import Chat
 from mysql.connector.pooling import PooledMySQLConnection
@@ -16,7 +17,7 @@ _connectionSecrets: None = None
 
 # .env Globals
 _BOT_TWITCH_ID: str = None
-_PRIMARY_ACCOUNT_TWITCH_ID: str = None
+_BROADCASTER_TWITCH_ID: str = None
 _TARGET_CHANNELS: list = None
 _BOT_SIGIL: str = None
 _BOT_NAME: str = None
@@ -46,8 +47,8 @@ def init_globals():
     global _BOT_TWITCH_ID
     _BOT_TWITCH_ID = os.getenv("BOT_TWITCH_ID")
 
-    global _PRIMARY_ACCOUNT_TWITCH_ID
-    _PRIMARY_ACCOUNT_TWITCH_ID = os.getenv("PRIMARY_ACCOUNT_TWITCH_ID")
+    global _BROADCASTER_TWITCH_ID
+    _BROADCASTER_TWITCH_ID = os.getenv("BROADCASTER_TWITCH_ID")
 
     global _TARGET_CHANNELS
     _TARGET_CHANNELS = os.getenv("TARGET_CHANNELS").split(",")  # split to a list
