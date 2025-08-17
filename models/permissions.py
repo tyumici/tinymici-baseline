@@ -37,6 +37,7 @@ SOME_CHANNEL_2_MIDDLEWARE = [ChannelRestriction(allowed_channel=["some_channel_2
 """
 
 # Baseline Scopes, expand or reduce as needed
+# TODO add base auth scope description to the read me
 TARGET_SCOPES = [
     AuthScope.USER_BOT,
     AuthScope.USER_READ_CHAT,
