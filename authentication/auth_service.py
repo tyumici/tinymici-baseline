@@ -9,7 +9,7 @@ import models.globals
 class AuthService:
 
     async def setup_bot_auth(auth_dict):
-        '''Create and return a Twitch instance of tinymici for chat commands'''
+        '''Create and return a Twitch instance of bot Twitch Class for chat commands'''
 
         models.globals._bot_handler_twitch = await Twitch(
             auth_dict["BOT_CLIENT_ID"], authenticate_app=False
