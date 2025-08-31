@@ -10,6 +10,8 @@ A baseline Twitch bot made in Python 3.13.5
       - [Populating the DB](#populating-the-db)
     - [Databasing](#databasing)
     - [Global Variables](#global-variables)
+      - [Twitch Classes](#twitch-classes)
+      - [Env Variables](#env-variables)
     - [Linting and Formatting](#linting-and-formatting)
     - [Running](#running)
   - [Testing With twitch-cli](#testing-with-twitch-cli)
@@ -53,7 +55,7 @@ Due to the nature of the TwitchAPI python library, or my own misunderstanding of
 You will need to:
 
 - Create a token for your **Bot Account** via the [Twitch Token Generator](https://twitchtokengenerator.com/)
-  - Make sure to provide it with all the necessary auth scopes (TODO ADD BASE SCOPES HERE)
+  - Make sure to provide it with all the necessary auth scopes, this app uses the scopes added in TARGET_SCOPES from [permissions.py](./models/permissions.py)
 - Create a Developer Application for your **Broadcaster Account** via the [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 
 This effectively allows for the **Bot Account** to respond to commands, send messages, etc, while also allowing eventsub handling from your **Broadcaster Account**. 
@@ -78,6 +80,24 @@ If you have no need for a database, just comment out the `connPrimary = DataServ
 For the DB credentials, you can use a .env or hardcode them in. If you're running a local DB on your local network, without external access, there shouldn't be harm in that.
 
 ### Global Variables
+
+This bot application utilizes a central globals file for variables that need to be passed between classes.
+
+These can be found in the [globals.py](./models/globals.py)
+
+#### Twitch Classes
+
+Global instance of Twitch classes for handling and performing events
+
+- _chat_global: The global Chat class instance for your bot
+- _bot_handler_twitch: The global Twitch class instance for your bot
+- _event_sub_handler_twitch: The global EventSub class instance for your broadcaster account
+
+#### Env Variables
+
+Variables taken from the local .env file
+
+These all have comments on their associated usage, or are named in a manner that convey purpose.
 
 ### Linting and Formatting
 
