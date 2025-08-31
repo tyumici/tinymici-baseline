@@ -24,3 +24,12 @@ class RedeemService:
                 LogLevel.EVENT_SUB_NOTIF.value,
             )
         )
+
+    async def handle_redeems_mock(event: ChannelPointsCustomRewardRedemptionAddEvent):
+        """Logs event from a mock channel point redeem via the twitch-cli"""
+        print(
+            colored(
+                "Point Redemption: MOCK REDEEM",
+                LogLevel.EVENT_SUB_NOTIF.value,
+            )
+        )

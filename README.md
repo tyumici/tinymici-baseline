@@ -12,6 +12,10 @@ A baseline Twitch bot made in Python 3.13.5
     - [Global Variables](#global-variables)
     - [Linting and Formatting](#linting-and-formatting)
     - [Running](#running)
+  - [Testing With twitch-cli](#testing-with-twitch-cli)
+    - [Setup](#setup-1)
+    - [Start Local API](#start-local-api)
+    - [Simulating events](#simulating-events)
 
 ## Rationale
 
@@ -85,3 +89,44 @@ I host my bot on a raspberry pi on my local network. Just activate the virtual e
 
 The TwitchAPI appears to have reconnect features, so that should be handled automatically. If you're running a database, there are also built in ping checks to the db, and a task to reconnect on a schedule.
 
+## Testing With twitch-cli
+
+### Setup
+
+Setup and install the `twitch-cli` via the official docs found [here](https://dev.twitch.tv/docs/cli/)
+
+Can also be found on the AUR [here](https://aur.archlinux.org/packages/twitch-cli)
+
+### Start Local API
+
+You will need to start a mock api and websocket for eventsub events:
+
+Run: `twitch-cli mock-api start -p 8000` to start the mock api on local port 8000
+
+Run `twitch-cli event websocket start` to start the websocket on local port 8080 (by default)
+
+Feel free to use any ports, make sure to update [test.py](./test.py) if you do. The mock-api is set to port 8000, and the websocket is on the default 8080.
+
+To connect to the local api and websocket, run `python test.py`
+
+### Simulating events
+
+All events that the CLI can trigger can be found at the docs [here](https://github.com/twitchdev/twitch-cli/blob/main/docs/event.md)
+
+In [test.py](./test.py) the event sub is setup to handle a few common events"
+- Channel Point Redeem
+- Channel Follow
+- Channel Subscribe
+- Stream End
+- Channel Raid Receive
+
+The pattern utilized is as follows
+
+```python
+follow_id = await eventsub.listen_channel_follow_v2(user.id, user.id, FollowService.on_follow_mock)
+print(f'twitch-cli event trigger follow -t {user.id} -u {follow_id} -T websocket')
+```
+
+In the above snippet the printed line is what you will copy and enter into your terminal to trigger the event.
+
+The base event sub handlers in this application have a partner _mock function that simply prints the event that was received.

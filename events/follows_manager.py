@@ -21,3 +21,11 @@ class FollowService:
                 f"{data.event.user_name} has followed", LogLevel.EVENT_SUB_NOTIF.value
             )
         )
+
+    async def on_follow_mock(data: ChannelFollowEvent):
+        """Logs event from a mock follow via the twitch-cli"""
+        print(
+            colored(
+                f"{data.event.user_name} has followed", LogLevel.EVENT_SUB_NOTIF.value
+            )
+        )
