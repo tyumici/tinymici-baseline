@@ -21,3 +21,7 @@ class OfflineManager:
             None,
             {os.getenv("OFFLINE_TITLE")},
         )
+
+    async def change_stream_info_mock(info: StreamOfflineEvent):
+        """Logs event from a mock stream offline event via the twitch-cli"""
+        print(colored("Stream Ended", LogLevel.EVENT_SUB_NOTIF.value))

@@ -27,3 +27,12 @@ class RaidManager:
             )
         except Exception as e:
             print(colored(f"Error on Raid shoutout: {e}", LogLevel.ERROR_MESSAGE.value))
+
+    async def handle_raid_mock(info: ChannelRaidEvent):
+        """Logs event from a mock raid via the twitch-cli"""
+        print(
+            colored(
+                f"Raid received by: {info.event.from_broadcaster_user_name}",
+                LogLevel.EVENT_SUB_NOTIF.value,
+            )
+        )
