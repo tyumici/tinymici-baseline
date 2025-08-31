@@ -13,7 +13,6 @@ from events.redeems_manager import RedeemService
 from models.log_level import LogLevel
 from twitchAPI.eventsub.websocket import EventSubWebsocket
 from twitchAPI.type import AuthScope
-from twitchAPI.object.eventsub import StreamOfflineEvent
 
 # Global variable
 load_dotenv()
