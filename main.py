@@ -18,12 +18,14 @@ from events.raid_manager import RaidManager
 from events.redeems_manager import RedeemService
 import models.globals
 from models.log_level import LogLevel
+from utilities.database_connect import DatabaseConnector
+
 
 # Global variable and database connection instantiation
 load_dotenv()
 models.globals.init_globals()
-connPrimary = DataService.connect_primary()
-connSecrets = DataService.connect_secrets()
+connPrimary = DatabaseConnector.connect_primary()
+connSecrets = DatabaseConnector.connect_secrets()
 secrets = DataService.get_all_secrets()
 
 
