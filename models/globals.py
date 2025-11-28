@@ -45,19 +45,21 @@ def init_globals():
     # --- --- --- --- --- .env loading --- --- --- --- --- #
 
     global _BOT_TWITCH_ID
-    _BOT_TWITCH_ID = os.getenv("BOT_TWITCH_ID")
+    _BOT_TWITCH_ID = os.getenv("TINYMICI_BOT_TWITCH_ID")
 
     global _BROADCASTER_TWITCH_ID
-    _BROADCASTER_TWITCH_ID = os.getenv("BROADCASTER_TWITCH_ID")
+    _BROADCASTER_TWITCH_ID = os.getenv("TINYMICI_BROADCASTER_TWITCH_ID")
 
     global _TARGET_CHANNELS
-    _TARGET_CHANNELS = os.getenv("TARGET_CHANNELS").split(",")  # split to a list
+    _TARGET_CHANNELS = os.getenv("TINYMICI_TARGET_CHANNELS").split(
+        ","
+    )  # split to a list
 
     global _BOT_SIGIL
-    _BOT_SIGIL = os.getenv("BOT_SIGIL").encode().decode("unicode_escape")
+    _BOT_SIGIL = os.getenv("TINYMICI_BOT_SIGIL").encode().decode("unicode_escape")
 
     global _BOT_NAME
-    _BOT_NAME = os.getenv("BOT_NAME")
+    _BOT_NAME = os.getenv("TINYMICI_BOT_NAME")
 
     global _BROADCASTER_NAME
-    _BROADCASTER_NAME = os.getenv("BROADCASTER_NAME")
+    _BROADCASTER_NAME = os.getenv("TINYMICI_BROADCASTER_NAME")

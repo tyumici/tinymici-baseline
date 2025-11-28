@@ -26,13 +26,16 @@ class DatabaseConnector:
         )
         print(
             colored(
-                "A scheduled DB reconnect has occurred", LogLevel.CONNECTION_MESSAGE.value
+                "A scheduled DB reconnect has occurred",
+                LogLevel.CONNECTION_MESSAGE.value,
             )
         )
 
     def run_scheduler():
         """Runs the scheduled DB reconnect"""
-        print(colored("DB Reconnect Schedule Started", LogLevel.CONNECTION_MESSAGE.value))
+        print(
+            colored("DB Reconnect Schedule Started", LogLevel.CONNECTION_MESSAGE.value)
+        )
         while True:
             schedule.run_pending()
             time.sleep(1)
@@ -60,11 +63,11 @@ class DatabaseConnector:
         """Connect to the primary database and assign the global _connectedPrimary connection"""
         try:
             models.globals._connectionPrimary = mysql.connector.connect(
-                user=os.getenv("DB_USER"),
-                password=os.getenv("DB_PASSWORD"),
-                host=os.getenv("DB_HOST"),
-                port=os.getenv("DB_PORT"),
-                database=os.getenv("DB_NAME"),
+                user=os.getenv("TINYMICI_DB_USER"),
+                password=os.getenv("TINYMICI_DB_PASSWORD"),
+                host=os.getenv("TINYMICI_DB_HOST"),
+                port=os.getenv("TINYMICI_DB_PORT"),
+                database=os.getenv("TINYMICI_DB_NAME"),
             )
             if models.globals._connectionPrimary.is_connected():
                 print(

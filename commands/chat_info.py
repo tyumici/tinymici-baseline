@@ -12,32 +12,42 @@ class ChatInfo:
 
     async def discord(cmd: ChatCommand):
         """Reply with your Discord link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("DISCORD")}")
+        await cmd.reply(
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_DISCORD")}"
+        )
 
     async def youtube(cmd: ChatCommand):
         """Reply with your Youtube link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("YOUTUBE")}")
+        await cmd.reply(
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_YOUTUBE")}"
+        )
 
     async def twitter(cmd: ChatCommand):
         """Reply with your Twitter link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("TWITTER")}")
+        await cmd.reply(
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_TWITTER")}"
+        )
 
     async def x(cmd: ChatCommand):
         """Reply with your X.com link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("X")}")
+        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_X")}")
 
     async def bluesky(cmd: ChatCommand):
         """Reply with your Bluesky link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("BLUESKY")}")
+        await cmd.reply(
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_BLUESKY")}"
+        )
 
     async def github(cmd: ChatCommand):
         """Reply with your Github link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}]{os.getenv("GITHUB")}")
+        await cmd.reply(f"[{models.globals._BOT_SIGIL}]{os.getenv("TINYMICI_GITHUB")}")
 
     async def throne(cmd: ChatCommand):
         """Reply with your Throne link"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("THRONE")}")
+        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_THRONE")}")
 
     async def commands(cmd: ChatCommand):
         """Reply with a list of all of your ! commands"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}]{os.getenv("COMMANDS")}")
+        await cmd.reply(
+            f"[{models.globals._BOT_SIGIL}]{os.getenv("TINYMICI_COMMANDS")}"
+        )

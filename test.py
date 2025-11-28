@@ -16,9 +16,9 @@ from twitchAPI.type import AuthScope
 
 # Global variable
 load_dotenv()
-MOCK_CLIENT_ID = os.getenv("MOCK_CLIENT_ID")
-MOCK_CLIENT_SECRET = os.getenv("MOCK_CLIENT_SECRET")
-MOCK_USER_ID = os.getenv("MOCK_USER_ID")
+MOCK_CLIENT_ID = os.getenv("TINYMICI_MOCK_CLIENT_ID")
+MOCK_CLIENT_SECRET = os.getenv("TINYMICI_MOCK_CLIENT_SECRET")
+MOCK_USER_ID = os.getenv("TINYMICI_MOCK_USER_ID")
 
 
 async def on_subscribe(data: ChannelSubscribeEvent):

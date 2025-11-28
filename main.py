@@ -28,7 +28,9 @@ load_dotenv()
 models.globals.init_globals()
 connPrimary = DatabaseConnector.connect_primary()
 connSecrets = DatabaseConnector.connect_secrets()
-schedule.every(4).hours.do(DatabaseConnector.reconnect_db_job)  # run database reconnect every 4 hours
+schedule.every(4).hours.do(
+    DatabaseConnector.reconnect_db_job
+)  # run database reconnect every 4 hours
 threading.Thread(target=DatabaseConnector.run_scheduler, daemon=True).start()
 
 secrets = DataService.get_all_secrets()
