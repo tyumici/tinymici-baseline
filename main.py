@@ -1,10 +1,12 @@
 import asyncio
 
 # Package
-from twitchAPI.type import ChatEvent
-from twitchAPI.eventsub.websocket import EventSubWebsocket
 from dotenv import load_dotenv
 from termcolor import colored
+from twitchAPI.eventsub.websocket import EventSubWebsocket
+from twitchAPI.type import ChatEvent
+import schedule
+import threading
 
 # Custom
 from authentication.auth_service import AuthService
@@ -18,12 +20,17 @@ from events.raid_manager import RaidManager
 from events.redeems_manager import RedeemService
 import models.globals
 from models.log_level import LogLevel
+from utilities.database_connect import DatabaseConnector
+
 
 # Global variable and database connection instantiation
 load_dotenv()
 models.globals.init_globals()
-connPrimary = DataService.connect_primary()
-connSecrets = DataService.connect_secrets()
+connPrimary = DatabaseConnector.connect_primary()
+connSecrets = DatabaseConnector.connect_secrets()
+schedule.every(4).hours.do(DatabaseConnector.reconnect_db_job)  # run database reconnect every 4 hours
+threading.Thread(target=DatabaseConnector.run_scheduler, daemon=True).start()
+
 secrets = DataService.get_all_secrets()
 
 
