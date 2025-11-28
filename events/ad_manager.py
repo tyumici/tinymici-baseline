@@ -33,12 +33,12 @@ class AdManager:
         await asyncio.sleep(60)
         await models.globals._chat_global.send_message(
             info.event.broadcaster_user_name,
-            f"[{models.globals._BOT_SIGIL}] {os.getenv("DISCORD")}",
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_DISCORD")}",
         )
         await asyncio.sleep(60)
         await models.globals._chat_global.send_message(
             info.event.broadcaster_user_name,
-            f"[{models.globals._BOT_SIGIL}] {os.getenv("BLUESKY")}",
+            f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_BLUESKY")}",
         )
         await asyncio.sleep(60)
         await models.globals._chat_global.send_message(

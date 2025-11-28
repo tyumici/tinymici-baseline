@@ -14,7 +14,7 @@ class ChatCommands:
 
     async def lurk(cmd: ChatCommand):
         """Lets the Broadcaster know you're lurking"""
-        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("LURK")}")
+        await cmd.reply(f"[{models.globals._BOT_SIGIL}] {os.getenv("TINYMICI_LURK")}")
 
     async def ping(cmd: ChatCommand):
         """Effectively a live check for chat to the Bot"""

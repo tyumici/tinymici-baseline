@@ -19,7 +19,7 @@ class OfflineManager:
             models.globals._BROADCASTER_TWITCH_ID,
             None,
             None,
-            {os.getenv("OFFLINE_TITLE")},
+            {os.getenv("TINYMICI_OFFLINE_TITLE")},
         )
 
     async def change_stream_info_mock(info: StreamOfflineEvent):
