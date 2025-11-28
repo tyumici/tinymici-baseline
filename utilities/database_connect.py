@@ -1,15 +1,14 @@
 import os
-import sys
 import sqlite3
-import threading
+import sys
 import time
 
 # Package
 import schedule
-import mariadb
 import mysql.connector
-from mysql.connector import Error
+import mariadb
 from termcolor import colored
+from mysql.connector import Error
 
 # Custom
 import models.globals
@@ -31,15 +30,12 @@ class DatabaseConnector:
             )
         )
 
-    schedule.every(4).hours.do(reconnect_db_job)  # run database reconnect every 4 hours
-
     def run_scheduler():
+        """Runs the scheduled DB reconnect"""
         print(colored("DB Reconnect Schedule Started", LogLevel.CONNECTION_MESSAGE.value))
         while True:
             schedule.run_pending()
             time.sleep(1)
-
-    threading.Thread(target=run_scheduler, daemon=True).start()
 
     def reconnect_primary(connection):
         """Ping the Database and reconnect on ping failure"""
