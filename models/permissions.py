@@ -1,15 +1,19 @@
 from twitchAPI.chat.middleware import UserRestriction, ChannelRestriction
 from twitchAPI.type import AuthScope
-import models.globals
+import os
+from dotenv import load_dotenv
+
+# This is a second load to get values not set in time from globals.py
+load_dotenv()
 
 # Broadcaster only commands
 BROADCASTER_ONLY_COMMAND = [
-    UserRestriction(allowed_users=[models.globals._BROADCASTER_NAME])
+    UserRestriction(allowed_users=[os.getenv("TINYMICI_BROADCASTER_NAME")])
 ]
 
 # Broadcaster channel siloed commands
 BROADCASTER_CHANNEL_MIDDLEWARE = [
-    ChannelRestriction(allowed_channel=[models.globals._BROADCASTER_NAME])
+    ChannelRestriction(allowed_channel=[os.getenv("TINYMICI_BROADCASTER_NAME")])
 ]
 
 # SHARED COMMAND MIDDLEWARE
