@@ -1,5 +1,13 @@
 # Green Heat, by Prodzpod
 
+- [Green Heat, by Prodzpod](#green-heat-by-prodzpod)
+  - [Python Setup](#python-setup)
+    - [GreenHeat Class](#greenheat-class)
+    - [Main Thread](#main-thread)
+  - [Values Received](#values-received)
+    - [Websocket Message](#websocket-message)
+    - [On the Coordinate Plane](#on-the-coordinate-plane)
+
 An interactive click-map extension for Twitch.tv.
 
 It's an enhanced version of the Heat plugin, allowing for dragging, hovering, release, and other features from within your streams video player on Twitch.
