@@ -84,6 +84,8 @@ The messages from the websocket are a standard JSON object with the following pr
 - latency: The stream latency between source and viewer
 - type: Click event type, can be `click`, `drag`, `hover` or `release`
 
+Note: This is super set of the original Heat Plugin output, so if you're migrating, it should be seamless.
+
 ### On the Coordinate Plane
 
 Consider the XY plane to be the fourth quadrant on a coordinate grid, except where the Y values are positive.
