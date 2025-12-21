@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 # Package
 from dotenv import load_dotenv
@@ -21,6 +22,7 @@ from events.redeems_manager import RedeemService
 import models.globals
 from models.log_level import LogLevel
 from utilities.database_connect import DatabaseConnector
+from utilities.greenheat import GreenHeat
 
 
 # Global variable and database connection instantiation
@@ -32,6 +34,10 @@ schedule.every(4).hours.do(
     DatabaseConnector.reconnect_db_job
 )  # run database reconnect every 4 hours
 threading.Thread(target=DatabaseConnector.run_scheduler, daemon=True).start()
+
+# Start GreenHeat
+if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == 'true':
+    threading.Thread(target=GreenHeat.start_greenheat_wss, daemon=True).start()
 
 secrets = DataService.get_all_secrets()
 

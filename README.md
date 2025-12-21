@@ -18,6 +18,7 @@ A baseline Twitch bot made in Python 3.13.5
     - [Setup](#setup-1)
     - [Start Local API](#start-local-api)
     - [Simulating events](#simulating-events)
+  - [GreenHeat](#greenheat)
 
 ## Rationale
 
@@ -150,3 +151,7 @@ print(f'twitch-cli event trigger follow -t {user.id} -u {follow_id} -T websocket
 In the above snippet the printed line is what you will copy and enter into your terminal to trigger the event.
 
 The base event sub handlers in this application have a partner _mock function that simply prints the event that was received.
+
+## GreenHeat
+
+Please see the docs page here: [GreenHeat.md](./GreenHeat.md)
