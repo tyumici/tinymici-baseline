@@ -7,3 +7,4 @@ class LogLevel(Enum):
     CONNECTION_MESSAGE = "yellow"
     SUCCESS_MESSAGE = "green"
     EVENT_SUB_NOTIF = "magenta"
+    WEBSOCKET_MESSAGE = "light_cyan"
