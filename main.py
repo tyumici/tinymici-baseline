@@ -35,10 +35,6 @@ schedule.every(4).hours.do(
 )  # run database reconnect every 4 hours
 threading.Thread(target=DatabaseConnector.run_scheduler, daemon=True).start()
 
-# Start GreenHeat
-if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == 'true':
-    threading.Thread(target=GreenHeat.start_greenheat_wss, daemon=True).start()
-
 secrets = DataService.get_all_secrets()
 
 
@@ -80,6 +76,10 @@ async def run():
     await eventsub.listen_channel_raid(
         RaidManager.handle_raid, models.globals._BROADCASTER_TWITCH_ID
     )
+
+    # Start GreenHeat
+    if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == "true":
+        threading.Thread(target=GreenHeat.start_greenheat_wss, daemon=True).start()
 
     try:
         # Press enter in the terminal to shutdown
