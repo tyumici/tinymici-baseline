@@ -78,7 +78,7 @@ async def run():
     )
 
     # Start GreenHeat
-    if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == 'true':
+    if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == "true":
         threading.Thread(target=GreenHeat.start_greenheat_wss, daemon=True).start()
 
     try:
@@ -92,6 +92,7 @@ async def run():
         chat_global.stop()
         await eventsub.stop()
         await event_sub_handler_twitch.close()
+
 
 # Start the Twitch Bot
 asyncio.run(run())
