@@ -23,6 +23,7 @@ import models.globals
 from models.log_level import LogLevel
 from utilities.database_connect import DatabaseConnector
 from utilities.greenheat import GreenHeat
+from utilities.obs_websocket import OBSWebsocket
 
 
 # Global variable and database connection instantiation
@@ -80,6 +81,10 @@ async def run():
     # Start GreenHeat
     if os.getenv("TINYMICI_ENABLE_GREENHEAT").lower() == "true":
         threading.Thread(target=GreenHeat.start_greenheat_wss, daemon=True).start()
+
+    # Start OBS Websocket connect
+    if len(os.getenv("TINYMICI_OBS_WSS_PASSWORD").lower()) > 0:
+        threading.Thread(target=OBSWebsocket.start_obs_wss, daemon=True).start()
 
     try:
         # Press enter in the terminal to shutdown
